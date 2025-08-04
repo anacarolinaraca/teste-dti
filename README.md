@@ -1,5 +1,5 @@
 # Projeto - Gerenciamento de Filmes
-Esse projeto é um teste técnico que consiste no desenvolvimento de um CRUD para gerenciamento de filmes, com um CRUD, utilizando
+Esse projeto é um teste técnico que consiste no desenvolvimento de um CRUD para gerenciamento de filmes, com um CRUD, utilizando:
 - Node.js 
 - SQLite como banco de dados
 - Sequelize como ORM
@@ -56,7 +56,22 @@ npm run start
 ```
 npm run test
 ```
-3.6 Para ver a cobertura de teste:
+3.6. Para ver a cobertura de teste:
 ```
 npm run test:coverage
 ```
+3.7. Executando a aplicação:
+Após rodar o comando `npm run start`, será exibido um menu interativo no terminal com as opções disponíveis:
+```
+===============================
+            Filmes
+===============================
+1 - Adicionar um filme
+2 - Listar todos os filmes
+3 - Buscar filme por Id
+4 - Atualizar filme
+5 - Deletar filme
+0 - Sair
+Digite o número da ação:
+```
+Escolha uma opção do menu e siga as instruções no terminal.
