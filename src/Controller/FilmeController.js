@@ -23,19 +23,23 @@ class FilmeController {
 
       switch (opcao) {
         case '1':
-          await this.adicionarFilme();
+          const addFilme = await this.adicionarFilme();
+          console.log(addFilme);
           break;
         case '2':
           await this.listarFilmes();
           break;
         case '3':
-          await this.buscarFilmePorId();
+          const filmePorId = await this.buscarFilmePorId();
+          console.log(filmePorId);
           break;
         case '4':
-          await this.atualizarFilme();
+          const filmeAtualizado = await this.atualizarFilme();
+          console.log(filmeAtualizado);
           break;
         case '5':
-          await this.deletarFilme();
+          const filmeDeletado = await this.deletarFilme();
+          console.log(filmeDeletado);
           break;
         case '0':
           console.log('Saindo...');
@@ -58,6 +62,9 @@ class FilmeController {
       if (titulo == '' || duracao == '' || anoLancamento == '') {
         return 'Os campos título, duração e ano de lançamento são obrigatórios.';
       }
+      if (isNaN(duracao) || isNaN(anoLancamento)) {
+        return 'A duração e o ano de lançamento devem ser números.';
+      }
       const filmeAdicionado = await this.filmeService.adicionarFilme(
         titulo,
         sinopse,
@@ -67,7 +74,7 @@ class FilmeController {
         diretor,
         dataAdicionado
       );
-      return console.log(filmeAdicionado);
+      return filmeAdicionado;
     } catch (error) {
       console.log(`Erro ao adicionar filme: ${error.message}`);
     }
@@ -86,7 +93,7 @@ class FilmeController {
     try {
       const id = readline.question('Id do filme: ');
       const filme = await this.filmeService.buscarFilmePorId(id);
-      return console.log(filme);
+      return filme;
     } catch (error) {
       console.log(`Erro ao buscar filme: ${error.message}`);
     }
@@ -118,7 +125,7 @@ class FilmeController {
         campo,
         novoValor
       );
-      return console.log(mensagem);
+      return mensagem;
     } catch (error) {
       console.log(`Erro ao atualizar filme: ${error.message}`);
     }
@@ -128,7 +135,7 @@ class FilmeController {
     try {
       const id = readline.question('Id do filme: ');
       const mensagem = await this.filmeService.deletarFilme(id);
-      return console.log(mensagem);
+      return mensagem;
     } catch (error) {
       console.log(`Erro ao buscar filme: ${error.message}`);
     }

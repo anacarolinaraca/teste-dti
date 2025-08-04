@@ -46,7 +46,7 @@ class FilmeService {
   async buscarFilmePorId(id) {
     const filme = await this.filme.findByPk(id);
     if (!filme) {
-      return 'Não há filmes para exibir.';
+      return 'Filme não encontrado.';
     }
     return `${filme.id} | ${filme.titulo} | ${filme.duracao} | ${filme.genero} | ${filme.anoLancamento} | ${filme.sinopse} | ${filme.diretor} \n`;
   }
