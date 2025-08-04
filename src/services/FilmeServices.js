@@ -33,11 +33,11 @@ class FilmeService {
     }
     const filmesLista = [];
     filmesLista.push(
-      'Id | Título | Duração | Gênero | Ano de Lançamento | Sinopse | Diretor \n'
+      'Id | Título | Duração | Gênero | Ano de Lançamento | Sinopse | Diretor'
     );
     filmes.forEach((filme) => {
       filmesLista.push(
-        `${filme.id} | ${filme.titulo} | ${filme.duracao} | ${filme.genero} | ${filme.anoLancamento} | ${filme.sinopse} | ${filme.diretor} \n`
+        `${filme.id} | ${filme.titulo} | ${filme.duracao} | ${filme.genero} | ${filme.anoLancamento} | ${filme.sinopse} | ${filme.diretor}`
       );
     });
     return filmesLista;

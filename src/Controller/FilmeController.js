@@ -27,7 +27,8 @@ class FilmeController {
           console.log(addFilme);
           break;
         case '2':
-          await this.listarFilmes();
+          const listaFilmes = await this.listarFilmes();
+          console.log(listaFilmes);
           break;
         case '3':
           const filmePorId = await this.buscarFilmePorId();
@@ -83,7 +84,7 @@ class FilmeController {
   async listarFilmes() {
     try {
       const listaFilme = await this.filmeService.listarFilmes();
-      return listaFilme.forEach((lista) => console.log(lista));
+      return listaFilme;
     } catch (error) {
       console.log(`Erro ao listar filmes: ${error.message}`);
     }

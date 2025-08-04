@@ -60,8 +60,6 @@ describe('FilmeService', () => {
     });
 
     it('deve exibir filmes se existirem', async () => {
-      const consoleStub = sinon.stub(console, 'log');
-
       const filmesMock = [
         {
           id: 1,
@@ -79,10 +77,11 @@ describe('FilmeService', () => {
 
       const listaFilme = await service.listarFilmes();
 
-      expect(consoleStub.called).to.be.true;
       expect(listaFilme).to.be.an('array');
-
-      consoleStub.restore();
+      expect(listaFilme[0]).to.equal(
+        'Id | Título | Duração | Gênero | Ano de Lançamento | Sinopse | Diretor'
+      );
+      expect(listaFilme[1]).to.include('Os Vingadores');
     });
   });
 
@@ -91,7 +90,7 @@ describe('FilmeService', () => {
       stubFindByPk.resolves(undefined);
 
       const naoEncontrado = await service.buscarFilmePorId(1);
-      expect(naoEncontrado).to.equal('Não há filmes para exibir.');
+      expect(naoEncontrado).to.equal('Filme não encontrado.');
     });
 
     it('deve retornar dados do filme se encontrado', async () => {
