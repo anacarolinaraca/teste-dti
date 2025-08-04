@@ -23,24 +23,23 @@ class FilmeController {
 
       switch (opcao) {
         case '1':
-          console.log(await this.adicionarFilme());
+          await this.adicionarFilme();
           break;
         case '2':
           await this.listarFilmes();
           break;
         case '3':
-          console.log(await this.buscarFilmePorId());
+          await this.buscarFilmePorId();
           break;
         case '4':
-          console.log(await this.atualizarFilme());
+          await this.atualizarFilme();
           break;
         case '5':
-          console.log(await this.deletarFilme());
+          await this.deletarFilme();
           break;
         case '0':
           console.log('Saindo...');
           break;
-
         default:
           console.log('Opção inválida! Tente novamente.');
           break;
@@ -59,7 +58,7 @@ class FilmeController {
       if (titulo == '' || duracao == '' || anoLancamento == '') {
         return 'Os campos título, duração e ano de lançamento são obrigatórios.';
       }
-      return this.filmeService.adicionarFilme(
+      const filmeAdicionado = await this.filmeService.adicionarFilme(
         titulo,
         sinopse,
         duracao,
@@ -68,6 +67,7 @@ class FilmeController {
         diretor,
         dataAdicionado
       );
+      return console.log(filmeAdicionado);
     } catch (error) {
       console.log(`Erro ao adicionar filme: ${error.message}`);
     }
@@ -75,7 +75,8 @@ class FilmeController {
 
   async listarFilmes() {
     try {
-      return this.filmeService.listarFilmes();
+      const listaFilme = await this.filmeService.listarFilmes();
+      return listaFilme.forEach((lista) => console.log(lista));
     } catch (error) {
       console.log(`Erro ao listar filmes: ${error.message}`);
     }
@@ -84,7 +85,8 @@ class FilmeController {
   async buscarFilmePorId() {
     try {
       const id = readline.question('Id do filme: ');
-      return this.filmeService.buscarFilmePorId(id);
+      const filme = await this.filmeService.buscarFilmePorId(id);
+      return console.log(filme);
     } catch (error) {
       console.log(`Erro ao buscar filme: ${error.message}`);
     }
@@ -110,11 +112,13 @@ class FilmeController {
       if (!campoValido) {
         return 'Campo inválido.';
       }
-      const novoValor = readline.question(
-        `Digite o novo valor do ${campoValido}: `
+      const novoValor = readline.question(`Digite o novo valor do ${campo}: `);
+      const mensagem = await this.filmeService.atualizarFilme(
+        id,
+        campo,
+        novoValor
       );
-
-      return this.filmeService.atualizarFilme(id, campo, novoValor);
+      return console.log(mensagem);
     } catch (error) {
       console.log(`Erro ao atualizar filme: ${error.message}`);
     }
@@ -123,7 +127,8 @@ class FilmeController {
   async deletarFilme() {
     try {
       const id = readline.question('Id do filme: ');
-      return this.filmeService.deletarFilme(id);
+      const mensagem = await this.filmeService.deletarFilme(id);
+      return console.log(mensagem);
     } catch (error) {
       console.log(`Erro ao buscar filme: ${error.message}`);
     }

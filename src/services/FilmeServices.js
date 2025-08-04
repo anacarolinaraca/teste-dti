@@ -31,16 +31,16 @@ class FilmeService {
     if (filmes.length === 0) {
       return 'Não há filmes para exibir.';
     }
-    return [
-      console.log(
-        'Id | Título | Duração | Gênero | Ano de Lançamento | Sinopse | Diretor \n'
-      ),
-      filmes.forEach((filme) => {
-        console.log(
-          `${filme.id} | ${filme.titulo} | ${filme.duracao} | ${filme.genero} | ${filme.anoLancamento} | ${filme.sinopse} | ${filme.diretor} \n`
-        );
-      }),
-    ];
+    const filmesLista = [];
+    filmesLista.push(
+      'Id | Título | Duração | Gênero | Ano de Lançamento | Sinopse | Diretor \n'
+    );
+    filmes.forEach((filme) => {
+      filmesLista.push(
+        `${filme.id} | ${filme.titulo} | ${filme.duracao} | ${filme.genero} | ${filme.anoLancamento} | ${filme.sinopse} | ${filme.diretor} \n`
+      );
+    });
+    return filmesLista;
   }
 
   async buscarFilmePorId(id) {
@@ -74,9 +74,12 @@ class FilmeService {
   }
 
   async deletarFilme(id) {
-    await this.filme.destroy({
+    const filmeDeletado = await this.filme.destroy({
       where: { id },
     });
+    if (filmeDeletado === 0) {
+      return 'Filme não encontrado.';
+    }
     return 'Filme deletado com sucesso!';
   }
 }
